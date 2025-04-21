@@ -4,6 +4,7 @@ from scipy.fft import dct, idct
 import argparse
 import os
 import sys
+from image_preview import show_image_preview
 
 
 class DCTSteganography:
@@ -34,6 +35,11 @@ class DCTSteganography:
             image = cv2.imread(cover_image_path, cv2.IMREAD_GRAYSCALE)
             if image is None:
                 print(f"Error: Could not load image from {cover_image_path}")
+                return False
+
+            # Show image preview
+            if not show_image_preview(image):
+                print("Operation cancelled")
                 return False
             
             # Ensure image dimensions are multiples of block size (pad if necessary)
