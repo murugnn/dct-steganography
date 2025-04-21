@@ -32,7 +32,7 @@ cd dct-steganography
 
 2. Install the required dependencies:
 ```bash
-pip install numpy opencv-python scipy
+pip install -r requirements.txt
 ```
 
 ## Usage
