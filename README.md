@@ -59,6 +59,41 @@ python dct_steganography.py extract --image path/to/stego.png
 Optional parameters:
 - `--length` or `-l`: Specify the message length in bits if known (usually not needed as messages are null-terminated)
 
+# 🐳 Using This Project with Docker
+
+This project is fully Dockerized so you can run it without installing any dependencies directly on your machine.
+
+## 📦 Requirements
+
+- [Docker](https://www.docker.com/get-started) installed and running
+- xorg-xhost
+
+Build the docker image:
+
+```bash
+docker build -t stegapp .
+```
+
+Run the container and embed a message(completely for Linux X11 users):
+
+```bash
+ xhost +local:docker && \                                        
+docker run --rm -it \
+  -e DISPLAY=$DISPLAY \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v $(pwd):/app \
+  stegapp embed \
+  -i original.png \
+  -m "Your secret message or flag{hidden_data}" \
+  -o output.png && \
+xhost -local:docker
+```
+
+To extract a message: 
+```bash
+docker run -it -v $(pwd):/app stegapp extract --image output.png
+```
+
 ## Applications
 
 - **CTF Challenges**: Hide flags within images for capture-the-flag competitions
